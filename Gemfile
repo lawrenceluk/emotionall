@@ -31,15 +31,16 @@ gem 'soundcloud'
 
 gem 'httparty'
 
-#group :production do
-#  gem 'pg', '0.15.1'
-#  gem 'rails_12factor', '0.0.2'
-#end
+group :production do  
+	gem 'pg', '0.15.1'
+  gem 'rails_12factor', '0.0.2'
+end
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
 end
+
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
