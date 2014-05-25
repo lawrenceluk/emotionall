@@ -1,0 +1,27 @@
+<div class="mason-item col-sm-8 col-sm-push-2" id="<%= t.id.to_s %>">
+	<div class="userinfo">
+		<div style="width: 30%; float: left;">
+			<%= image_tag t.user.profile_image_url rescue "" %>
+		</div>
+		<div style="width: 50%; float: left;">
+			<%= t.user.name rescue "" %><br />
+			@<%= t.user.screen_name %>
+		</div>
+	</div>
+	<div class="t-content">
+		<%= t.text rescue "" %>
+		<% if t.entities? %>
+			<%= image_tag t.media[0].media_url, class: "sizecontrol" rescue "" %>
+		<% end %>
+	</div>
+	<div class="t-links">
+		<% t.uris.each do |u| %>
+			<%= link_to u.url, u.url.to_s, target: "_blank" %><br />
+		<% end %>
+	</div>
+	<div class="t-time">
+		<i class="fa fa-heart"></i> <%= t.favorite_count rescue '0' %> |
+		<i class="fa fa-retweet"></i> <%= t.retweet_count rescue '0' %> |
+		<%= "#{time_ago_in_words t.created_at} ago" rescue "" %>
+	</div>
+</div>

@@ -1,0 +1,58 @@
+<link href='http://fonts.googleapis.com/css?family=Codystar' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Dancing Script' rel='stylesheet' type='text/css'>
+
+<div class="row homebody">
+	<h1 class="brand">Emotion<span class = "special">All</span></h1>
+	<div class="col-md-6 col-md-push-3">
+		<div class="mainbody row">
+			<div class="prompt col-xs-5"> <span class = "normal">    I want to feel . . .</span></div>
+			<div class="col-xs-7">
+			<form id="mainform">
+	    	<div class="row">
+		    	<div class="col-xs-9">
+				    <input type="text submit" name="q" class="searchbox" id="searchbox"
+			            size="21" maxlength="120" pattern=".{1,}" value=<%= @query %>>
+          </div>
+				  <div class="col-xs-3">
+			      <select form="mainform" name="r" id="rselect" onChange="this.form.submit()">
+			        <option <%= if (@paramtype == "twitter") then "selected='true'" end %> value="twitter">Twitter</option>
+			        <option <%= if (@paramtype == "soundcloud") then "selected='true'" end %> value="soundcloud">Sound</option>
+			        <option <%= if (@paramtype == "flickr") then "selected='true'" end %> value="flickr">Flickr</option>
+			        <!-- <option <%= if (@paramtype == "quotes") then "selected='true'" end %> value="quotes">Quotes</option> -->
+			      </select>
+			    </div>
+		  	</div>
+	    </div>
+	  	</form>
+		</div>
+		<div class="row">
+			<div class="col-sm-12 col-lg-12">
+				<% if !@results.nil? && @results.any? %>
+					<% @results.each do |t| %>
+						<%= render 'extras/tweet', t: t %>
+					<% end %>
+				<% elsif !@tracks.nil? && @tracks.any? %>
+					<% @tracks.each do |t| %>
+						<% if !t.nil? %>
+							<% embed_info = @client.get('/oembed', :url => t.uri) rescue "" %>
+							<div class="margin">
+								<%= embed_info['html'].html_safe %>
+							</div>
+						<% end %>
+					<% end %>
+				<% elsif !@urls.nil? && @urls.any? %>
+					<div class="image-container">
+					<% @urls.each do |url| %>
+						<div class="image">
+							<%= image_tag url %>
+						</div>
+					<% end %>
+					</div>
+				<% else %>
+					<h2 class="text-center">Nothing here!</h2>
+				<% end %>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="gap"></div>
