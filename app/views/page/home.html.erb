@@ -26,7 +26,7 @@
 	  	</form>
 		</div>
 		<div class="row">
-			<div class="col-sm-12 col-lg-12">
+			<div class="col-xs-10 col-xs-push-1 col-md-12 col-md-push-0">
 				<% if !@results.nil? && @results.any? %>
 					<% @results.each do |t| %>
 						<%= render 'extras/tweet', t: t %>
@@ -56,3 +56,20 @@
 	</div>
 </div>
 <div class="gap"></div>
+<div id="totop">Back To Top</div>
+
+<script>
+	$(window).scroll(function () {
+		if ($(this).scrollTop() > 100) {
+			$('#totop').fadeIn();
+		} else {
+			$('#totop').fadeOut();
+		}
+	});
+	$('#totop').click(function () {
+		$('body,html').animate({
+			scrollTop: 0
+		}, 800);
+		return false;
+	});
+</script>
